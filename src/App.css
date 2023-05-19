@@ -1,3 +1,15 @@
 .navbar {
   margin-bottom: 1em;
 }
+
+.card {
+  width: 18rem;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cardDeck {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}

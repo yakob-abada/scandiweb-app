@@ -1,16 +1,29 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
+import { ProductType } from './ProductList';
 
-class ProductItem extends React.Component {
+type propsType = {
+    item: ProductType
+}
+
+class ProductItem extends React.Component<propsType> {
     render () {
+        const product = this.props.item;
         return (
-            <Card style={{ width: '18rem' }}>
+            <Card>
                 <Card.Body>
-                    <Card.Title>Card Title</Card.Title>
-                    <Card.Text>
-                    Some quick example text to build on the card title and make up the
-                    bulk of the card's content.
-                    </Card.Text>
+                    <Card.Title>{product.name}</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">{product.sku}</Card.Subtitle>
+                    <Card.Text>{product.price}</Card.Text>
+                    {product.product_type == 'dvd' && (
+                        <Card.Text>Size: {product.size} MB</Card.Text>
+                    )}
+                    {product.product_type == 'book' && (
+                        <Card.Text>Weight: {product.weight} KG</Card.Text>
+                    )}
+                    {product.product_type == 'furniture' && (
+                        <Card.Text>Dimension: {product.length} * {product.width} * {product.height}</Card.Text>
+                    )}
                 </Card.Body>
             </Card>
         );
