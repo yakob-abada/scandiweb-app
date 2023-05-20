@@ -1,20 +1,13 @@
+import axios from 'axios';
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { ProductType } from '../components/ProductItem';
+import { Navigate } from 'react-router-dom';
 
-type ProductSate = {
-    sku: string,
-    name: string,
-    price: number,
-    type: string,
-    size: number,
-    weight: number,
-    length: number,
-    height: number,
-    width: number
-}
+type ProductSate = ProductType
 
-class ProductForm extends React.Component<{}, ProductSate> {
+class ProductAdd extends React.Component<any, ProductSate> {
     constructor (props: {}) {
         super(props);
 
@@ -22,7 +15,7 @@ class ProductForm extends React.Component<{}, ProductSate> {
             sku: '',
             name: '',
             price: 0,
-            type: '',
+            product_type: '',
             size: 0,
             weight: 0,
             length: 0,
@@ -39,6 +32,7 @@ class ProductForm extends React.Component<{}, ProductSate> {
         this.handleLength = this.handleLength.bind(this);
         this.handleHeight = this.handleHeight.bind(this);
         this.handleWidth = this.handleWidth.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSku(event: React.ChangeEvent<HTMLInputElement>) {
@@ -54,7 +48,7 @@ class ProductForm extends React.Component<{}, ProductSate> {
     }
 
     handleType(event: React.ChangeEvent<HTMLSelectElement>) {
-        this.setState({type: event.currentTarget.value})
+        this.setState({product_type: event.currentTarget.value})
     }
 
     handleSize(event: React.ChangeEvent<HTMLInputElement>) {
@@ -77,15 +71,34 @@ class ProductForm extends React.Component<{}, ProductSate> {
         this.setState({width: parseInt(event.currentTarget.value)})
     }
 
-    handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    async handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        // @todo add Axios
+        const product = this.state
+        
+        try {
+            await axios.post(`http://127.0.0.1:8000/product/saveApi`, {
+                sku: product.sku,
+                name: product.name,
+                price: product.price,
+                productType: product.product_type,
+                size: product.size,
+                weight: product.weight,
+                heigth: product.height,
+                length: product.length,
+                width: product.width
+            });
+        } catch (e) {
+            console.log(e);return;
+        }
+
+
+        return  window.location.replace("/");
     }
 
     render() {
         return (
           <>
-            <h2>Add product: {this.state.type}</h2>
+            <h2>Add product:</h2>
             <Form onSubmit={this.handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicSkul">
                     <Form.Label>Sku</Form.Label>
@@ -111,56 +124,55 @@ class ProductForm extends React.Component<{}, ProductSate> {
                         <option value="furniture">Furniture</option>
                     </Form.Select>
                 </Form.Group>
-                {this.state.type == 'dvd' && (
+                {this.state.product_type == 'dvd' && (
                     <Form.Group className="mb-3" controlId="formBasicSize">
                         <Form.Label>Size</Form.Label>
-                        <Form.Control type="number" placeholder="Enter size" />
+                        <Form.Control type="number" placeholder="Enter size" onChange={this.handleSize} />
                         <Form.Text className="text-muted">
                             Please notice the size are in MB.
                         </Form.Text>
                     </Form.Group>
                 )}
-                {this.state.type == 'book' && (
+                {this.state.product_type == 'book' && (
                     <Form.Group className="mb-3" controlId="formBasicWeight">
                         <Form.Label>Weight</Form.Label>
-                        <Form.Control type="number" placeholder="Enter weight" />
+                        <Form.Control type="number" placeholder="Enter weight" onChange={this.handleWeight} />
                         <Form.Text className="text-muted">
                             Please notice the weight are in KG.
                         </Form.Text>
                     </Form.Group>
                 )}
-                {this.state.type == 'furniture' && (
+                {this.state.product_type == 'furniture' && (
                     <>
                         <Form.Group className="mb-3" controlId="formBasicHeight">
                             <Form.Label>Height</Form.Label>
-                            <Form.Control type="number" placeholder="Enter height" />
+                            <Form.Control type="number" placeholder="Enter height" onChange={this.handleHeight} />
                             <Form.Text className="text-muted">
                                 Please notice the height are in CM.
                             </Form.Text>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicLength">
                             <Form.Label>Length</Form.Label>
-                            <Form.Control type="number" placeholder="Enter length" />
+                            <Form.Control type="number" placeholder="Enter length" onChange={this.handleLength} />
                             <Form.Text className="text-muted">
                                 Please notice the length are in CM.
                             </Form.Text>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicWidth">
                             <Form.Label>Width</Form.Label>
-                            <Form.Control type="number" placeholder="Enter width" />
+                            <Form.Control type="number" placeholder="Enter width" onChange={this.handleWidth} />
                             <Form.Text className="text-muted">
                                 Please notice the width are in KG.
                             </Form.Text>
                         </Form.Group>
                     </>
                 )}
-                <Button variant="primary" type="submit">
-                Submit
-                </Button>
+                <Button className='spaceRight' variant="primary" type="submit">Submit</Button>
+                <Button variant="danger" href="/">Cancel</Button>
             </Form>
           </>
         );
     }
 }
 
-export default ProductForm;
+export default ProductAdd;

@@ -1,6 +1,17 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
-import { ProductType } from './ProductList';
+
+export type ProductType = {
+    sku: string,
+    name: string,
+    price: number,
+    product_type: string,
+    size: number,
+    weight: number,
+    height: number,
+    length: number,
+    width: number
+}
 
 type propsType = {
     item: ProductType
@@ -12,9 +23,9 @@ class ProductItem extends React.Component<propsType> {
         return (
             <Card>
                 <Card.Body>
-                    <Card.Title>{product.name}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">{product.sku}</Card.Subtitle>
-                    <Card.Text>{product.price}</Card.Text>
+                    <Card.Title>{product.name}</Card.Title>
+                    <Card.Text>{product.price}$</Card.Text>
                     {product.product_type == 'dvd' && (
                         <Card.Text>Size: {product.size} MB</Card.Text>
                     )}

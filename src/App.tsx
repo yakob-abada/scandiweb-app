@@ -1,29 +1,27 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ProductForm from './components/ProductForm';
 import Container from 'react-bootstrap/Container';
-import ProductList from './components/ProductList';
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
 import Headers from './components/Headers';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ProductList from './pages/ProductList';
+import ProductAdd from './pages/ProductAdd';
+import axios from 'axios';
 
 function App() {
+  // axios.defaults.withCredentials = true;
+
   return (
     <div className="App">
       <Headers />
       <Container >
-        <Tabs
-          defaultActiveKey="list"
-          id="uncontrolled-tab-example"
-          className="mb-3"
-        >
-          <Tab eventKey="list" title="List">
-            <ProductList />
-          </Tab>
-          <Tab eventKey="add" title="Add">
-            <ProductForm />
-          </Tab>
-        </Tabs>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/">
+              <Route index element={<ProductList />} />
+              <Route path="product-add" element={<ProductAdd />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
       </Container>
     </div>
   );

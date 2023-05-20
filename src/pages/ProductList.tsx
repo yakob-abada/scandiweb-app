@@ -1,20 +1,7 @@
 import axios from 'axios';
 import React from 'react';
-import ProductItem from './ProductItem';
-import Card from 'react-bootstrap/Card';
-import { wrap } from 'module';
-
-export type ProductType = {
-    sku: string,
-    name: string,
-    price: number,
-    product_type: string,
-    size: number,
-    weight: number,
-    height: number,
-    length: number,
-    width: number
-}
+import ProductItem, { ProductType } from '../components/ProductItem';
+import Button from 'react-bootstrap/Button';
 
 type stateType = {
     items: ProductType[]
@@ -35,9 +22,12 @@ class ProductList extends React.Component<{}, stateType> {
 
     render () {
         return (
-            <div className='cardDeck'>
-                {this.state.items.map(item => <ProductItem item={item}/>)}
-            </div>
+            <>
+                <Button className='spaceButton' href="/product-add">Add</Button>
+                <div className='cardDeck'>
+                    {this.state.items.map(item => <ProductItem key={item.sku} item={item}/>)}
+                </div>
+            </>
         )
     }
 }
