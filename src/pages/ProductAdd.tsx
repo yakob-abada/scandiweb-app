@@ -1,26 +1,33 @@
-import axios from 'axios';
+import Alert from 'react-bootstrap/Alert';
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { ProductType } from '../components/ProductItem';
-import { Navigate } from 'react-router-dom';
+import ProductService from '../serices/ProductService';
+import BadRequestError from '../serices/BadRequestError';
 
-type ProductSate = ProductType
+type stateType = {
+    product: ProductType
+    errorMessages: string[]
+}
 
-class ProductAdd extends React.Component<any, ProductSate> {
+class ProductAdd extends React.Component<any, stateType> {
     constructor (props: {}) {
         super(props);
 
         this.state = {
-            sku: '',
-            name: '',
-            price: 0,
-            product_type: '',
-            size: 0,
-            weight: 0,
-            length: 0,
-            height: 0,
-            width: 0
+            product: {
+                sku: null,
+                name: null,
+                price: null,
+                product_type: null,
+                size: null,
+                weight: null,
+                length: null,
+                height: null,
+                width: null
+            },
+            errorMessages: []
         }
 
         this.handleSku = this.handleSku.bind(this);
@@ -36,69 +43,106 @@ class ProductAdd extends React.Component<any, ProductSate> {
     }
 
     handleSku(event: React.ChangeEvent<HTMLInputElement>) {
-        this.setState({sku: event.currentTarget.value})
+        const value = event.currentTarget.value;
+        this.setState(state => {
+            state.product.sku = value
+            return state;
+        })
     }
 
     handleName(event: React.ChangeEvent<HTMLInputElement>) {
-        this.setState({name: event.currentTarget.value})
+        const value = event.currentTarget.value;
+        this.setState(state => {
+            state.product.name = value
+            return state;
+        })
     }
 
     handlePrice(event: React.ChangeEvent<HTMLInputElement>) {
-        this.setState({price: parseInt(event.currentTarget.value)})
+        const value = parseInt(event.currentTarget.value);
+        this.setState(state => {
+            state.product.price = value
+            return state;
+        })
     }
 
     handleType(event: React.ChangeEvent<HTMLSelectElement>) {
-        this.setState({product_type: event.currentTarget.value})
+        const value = event.currentTarget.value;
+        this.setState(state => {
+            state.product.product_type = value
+            return state;
+        })
     }
 
     handleSize(event: React.ChangeEvent<HTMLInputElement>) {
-        this.setState({size: parseInt(event.currentTarget.value)})
+        const value = parseInt(event.currentTarget.value);
+        this.setState(state => {
+            state.product.size = value
+            return state;
+        })
     }
 
     handleWeight(event: React.ChangeEvent<HTMLInputElement>) {
-        this.setState({weight: parseInt(event.currentTarget.value)})
+        const value = parseInt(event.currentTarget.value);
+        this.setState(state => {
+            state.product.weight = value
+            return state;
+        })
     }
 
     handleLength(event: React.ChangeEvent<HTMLInputElement>) {
-        this.setState({length: parseInt(event.currentTarget.value)})
+        const value = parseInt(event.currentTarget.value);
+        this.setState(state => {
+            state.product.length = value
+            return state;
+        })
     }
 
     handleHeight(event: React.ChangeEvent<HTMLInputElement>) {
-        this.setState({height: parseInt(event.currentTarget.value)})
+        const value = parseInt(event.currentTarget.value);
+        this.setState(state => {
+            state.product.height = value
+            return state;
+        })
     }
 
     handleWidth(event: React.ChangeEvent<HTMLInputElement>) {
-        this.setState({width: parseInt(event.currentTarget.value)})
+        const value = parseInt(event.currentTarget.value);
+        this.setState(state => {
+            state.product.width = value
+            return state;
+        })
     }
 
     async handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        const product = this.state
+        const product = this.state.product; 
         
+        const productService = new ProductService();
         try {
-            await axios.post(`http://127.0.0.1:8000/product/saveApi`, {
-                sku: product.sku,
-                name: product.name,
-                price: product.price,
-                productType: product.product_type,
-                size: product.size,
-                weight: product.weight,
-                heigth: product.height,
-                length: product.length,
-                width: product.width
-            });
+            const result = await productService.save(product);
         } catch (e) {
-            console.log(e);return;
+            if (e instanceof BadRequestError) {
+                this.setState({errorMessages: e.message.split(',')})
+                return;
+            }
         }
-
 
         return  window.location.replace("/");
     }
 
     render() {
+        const product = this.state.product
         return (
           <>
             <h2>Add product:</h2>
+            {this.state.errorMessages.length > 0 && (
+            <Alert key="danger" variant="danger">
+                <ul>
+                    {this.state.errorMessages.map((errorMessage, key) => <li key={key}>{errorMessage}</li>)}
+                </ul>
+            </Alert>
+            )}
             <Form onSubmit={this.handleSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicSkul">
                     <Form.Label>Sku</Form.Label>
@@ -108,14 +152,14 @@ class ProductAdd extends React.Component<any, ProductSate> {
                     <Form.Label>Name</Form.Label>
                     <Form.Control type="string" placeholder="Enter name" onChange={this.handleName}/>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicName">
+                <Form.Group className="mb-3" controlId="formBasicPrice">
                     <Form.Label>Price</Form.Label>
                     <Form.Control type="number" placeholder="Enter price" onChange={this.handlePrice} />
                     <Form.Text className="text-muted">
                         Please notice the pirce are in $.
                     </Form.Text>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicName">
+                <Form.Group className="mb-3" controlId="formBasicType">
                     <Form.Label>Type</Form.Label>
                     <Form.Select aria-label="Default select example" onChange={this.handleType}>
                         <option>Type</option>
@@ -124,7 +168,7 @@ class ProductAdd extends React.Component<any, ProductSate> {
                         <option value="furniture">Furniture</option>
                     </Form.Select>
                 </Form.Group>
-                {this.state.product_type == 'dvd' && (
+                {product.product_type == 'dvd' && (
                     <Form.Group className="mb-3" controlId="formBasicSize">
                         <Form.Label>Size</Form.Label>
                         <Form.Control type="number" placeholder="Enter size" onChange={this.handleSize} />
@@ -133,7 +177,7 @@ class ProductAdd extends React.Component<any, ProductSate> {
                         </Form.Text>
                     </Form.Group>
                 )}
-                {this.state.product_type == 'book' && (
+                {product.product_type == 'book' && (
                     <Form.Group className="mb-3" controlId="formBasicWeight">
                         <Form.Label>Weight</Form.Label>
                         <Form.Control type="number" placeholder="Enter weight" onChange={this.handleWeight} />
@@ -142,7 +186,7 @@ class ProductAdd extends React.Component<any, ProductSate> {
                         </Form.Text>
                     </Form.Group>
                 )}
-                {this.state.product_type == 'furniture' && (
+                {product.product_type == 'furniture' && (
                     <>
                         <Form.Group className="mb-3" controlId="formBasicHeight">
                             <Form.Label>Height</Form.Label>

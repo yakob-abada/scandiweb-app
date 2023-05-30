@@ -22,3 +22,9 @@
 .spaceRight {
   margin-right: 1rem;
 }
+
+.cardCheckBox {
+  text-align: right;
+  position: relative;
+  top: -5px;
+}
