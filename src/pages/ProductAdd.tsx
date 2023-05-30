@@ -168,7 +168,7 @@ class ProductAdd extends React.Component<any, stateType> {
                         <option value="furniture">Furniture</option>
                     </Form.Select>
                 </Form.Group>
-                {product.product_type == 'dvd' && (
+                {product.product_type === 'dvd' && (
                     <>
                         <Form.Group className="mb-3" controlId="formBasicSize">
                             <Form.Label>Size</Form.Label>
@@ -180,7 +180,7 @@ class ProductAdd extends React.Component<any, stateType> {
                         <p>Please, provide size</p>
                     </>
                 )}
-                {product.product_type == 'book' && (
+                {product.product_type === 'book' && (
                     <>
                         <Form.Group className="mb-3" controlId="formBasicWeight">
                             <Form.Label>Weight</Form.Label>
@@ -193,7 +193,7 @@ class ProductAdd extends React.Component<any, stateType> {
                     </>
                     
                 )}
-                {product.product_type == 'furniture' && (
+                {product.product_type === 'furniture' && (
                     <>
                         <Form.Group className="mb-3" controlId="formBasicHeight">
                             <Form.Label>Height</Form.Label>
