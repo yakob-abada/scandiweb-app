@@ -1,0 +1,20 @@
+@use 'config';
+
+.cardDeck {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .card {
+    width: 18rem;
+    margin-right: config.$space;
+    margin-bottom: config.$space;
+    text-align: center;
+  }
+}
+
+.delete-action {
+    text-align: left;
+    position: relative;
+    top: -5px;
+  }

@@ -1,0 +1,13 @@
+@use 'config';
+
+.navbar {
+  margin-bottom: config.$space;
+}
+
+.space-button {
+  margin-bottom: config.$space;;
+}
+
+.space-right {
+  margin-right: config.$space;;
+}
