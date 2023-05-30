@@ -143,25 +143,25 @@ class ProductAdd extends React.Component<any, stateType> {
                 </ul>
             </Alert>
             )}
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit} id="product_form">
                 <Form.Group className="mb-3" controlId="formBasicSkul">
                     <Form.Label>Sku</Form.Label>
                     <Form.Control type="string" placeholder="Enter sku" onChange={this.handleSku} />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicName">
                     <Form.Label>Name</Form.Label>
-                    <Form.Control type="string" placeholder="Enter name" onChange={this.handleName}/>
+                    <Form.Control type="string" placeholder="Enter name" id="name" onChange={this.handleName}/>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicPrice">
                     <Form.Label>Price</Form.Label>
-                    <Form.Control type="number" placeholder="Enter price" onChange={this.handlePrice} />
+                    <Form.Control type="number" placeholder="Enter price" id="price" onChange={this.handlePrice} />
                     <Form.Text className="text-muted">
                         Please notice the pirce are in $.
                     </Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicType">
                     <Form.Label>Type</Form.Label>
-                    <Form.Select aria-label="Default select example" onChange={this.handleType}>
+                    <Form.Select aria-label="Default select example" id="productType" onChange={this.handleType}>
                         <option>Type</option>
                         <option value="book">Book</option>
                         <option value="dvd">DVD</option>
@@ -169,49 +169,57 @@ class ProductAdd extends React.Component<any, stateType> {
                     </Form.Select>
                 </Form.Group>
                 {product.product_type == 'dvd' && (
-                    <Form.Group className="mb-3" controlId="formBasicSize">
-                        <Form.Label>Size</Form.Label>
-                        <Form.Control type="number" placeholder="Enter size" onChange={this.handleSize} />
-                        <Form.Text className="text-muted">
-                            Please notice the size are in MB.
-                        </Form.Text>
-                    </Form.Group>
+                    <>
+                        <Form.Group className="mb-3" controlId="formBasicSize">
+                            <Form.Label>Size</Form.Label>
+                            <Form.Control type="number" placeholder="Enter size" id="size" onChange={this.handleSize} />
+                            <Form.Text className="text-muted">
+                                Please notice the size are in MB.
+                            </Form.Text>
+                        </Form.Group>
+                        <p>Please, provide size</p>
+                    </>
                 )}
                 {product.product_type == 'book' && (
-                    <Form.Group className="mb-3" controlId="formBasicWeight">
-                        <Form.Label>Weight</Form.Label>
-                        <Form.Control type="number" placeholder="Enter weight" onChange={this.handleWeight} />
-                        <Form.Text className="text-muted">
-                            Please notice the weight are in KG.
-                        </Form.Text>
-                    </Form.Group>
+                    <>
+                        <Form.Group className="mb-3" controlId="formBasicWeight">
+                            <Form.Label>Weight</Form.Label>
+                            <Form.Control type="number" placeholder="Enter weight" id="weight" onChange={this.handleWeight} />
+                            <Form.Text className="text-muted">
+                                Please notice the weight are in KG.
+                            </Form.Text>
+                        </Form.Group>
+                        <p>Please, provide weight</p>
+                    </>
+                    
                 )}
                 {product.product_type == 'furniture' && (
                     <>
                         <Form.Group className="mb-3" controlId="formBasicHeight">
                             <Form.Label>Height</Form.Label>
-                            <Form.Control type="number" placeholder="Enter height" onChange={this.handleHeight} />
+                            <Form.Control type="number" placeholder="Enter height" id="height" onChange={this.handleHeight} />
                             <Form.Text className="text-muted">
                                 Please notice the height are in CM.
                             </Form.Text>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicLength">
                             <Form.Label>Length</Form.Label>
-                            <Form.Control type="number" placeholder="Enter length" onChange={this.handleLength} />
+                            <Form.Control type="number" placeholder="Enter length" id="lenght" onChange={this.handleLength} />
                             <Form.Text className="text-muted">
                                 Please notice the length are in CM.
                             </Form.Text>
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="formBasicWidth">
                             <Form.Label>Width</Form.Label>
-                            <Form.Control type="number" placeholder="Enter width" onChange={this.handleWidth} />
+                            <Form.Control type="number" placeholder="Enter width" id="width" onChange={this.handleWidth} />
                             <Form.Text className="text-muted">
                                 Please notice the width are in KG.
                             </Form.Text>
                         </Form.Group>
+                        <p>Please, provide dimensions</p>
                     </>
                 )}
-                <Button className='space-right' variant="primary" type="submit">Submit</Button>
+                <Button className='space-right' variant="primary" type="submit">Save</Button>
                 <Button variant="danger" href="/">Cancel</Button>
             </Form>
           </>

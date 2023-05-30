@@ -35,8 +35,8 @@ class ProductItem extends React.Component<propsType> {
         return (
             <Card>
                 <Card.Body>
-                    <div className="delete-checkbox">
-                        <input type="checkbox" name={product.sku ?? undefined} onClick={this.handleIsChecked} value={product.sku ?? ''}/>
+                    <div className="delete-action">
+                        <input type="checkbox" className="delete-checkbox" name={product.sku ?? undefined} onClick={this.handleIsChecked} value={product.sku ?? ''}/>
                     </div>
                     
                     <Card.Subtitle className="mb-2 text-muted">{product.sku}</Card.Subtitle>
@@ -49,7 +49,7 @@ class ProductItem extends React.Component<propsType> {
                         <Card.Text>Weight: {product.weight} KG</Card.Text>
                     )}
                     {product.product_type == 'furniture' && (
-                        <Card.Text>Dimension: {product.length} * {product.width} * {product.height} CM</Card.Text>
+                        <Card.Text>Dimension: {product.length} * {product.width} * {product.height}</Card.Text>
                     )}
                 </Card.Body>
             </Card>

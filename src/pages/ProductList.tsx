@@ -64,8 +64,8 @@ class ProductList extends React.Component<{}, stateType> {
     render () {
         return (
             <>
-                <Button className='space-button space-right' href="/product-add">Add</Button>
-                <Button className='space-button' onClick={this.deleteProducts}>Delete Selected Product(s)</Button>
+                <Button className='space-button space-right' href="/product-add">ADD</Button>
+                <Button className='space-button' onClick={this.deleteProducts}>MASS DELETE</Button>
                 <div className='cardDeck'>
                     {this.state.items.map(item => <ProductItem key={item.sku} item={item} handleCallback={this.handleCallback}/>)}
                 </div>
