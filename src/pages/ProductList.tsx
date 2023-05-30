@@ -1,4 +1,4 @@
-import axios from 'axios';
+import '../styles/ProductList.scss';
 import React from 'react';
 import ProductItem, { ProductType } from '../components/ProductItem';
 import Button from 'react-bootstrap/Button';
