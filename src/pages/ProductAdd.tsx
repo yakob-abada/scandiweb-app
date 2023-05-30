@@ -211,7 +211,7 @@ class ProductAdd extends React.Component<any, stateType> {
                         </Form.Group>
                     </>
                 )}
-                <Button className='spaceRight' variant="primary" type="submit">Submit</Button>
+                <Button className='space-right' variant="primary" type="submit">Submit</Button>
                 <Button variant="danger" href="/">Cancel</Button>
             </Form>
           </>

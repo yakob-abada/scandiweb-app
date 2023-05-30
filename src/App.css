@@ -15,16 +15,16 @@
   flex-wrap: wrap;
 }
 
-.spaceButton {
+.space-button {
   margin-bottom: 1rem;
 }
 
-.spaceRight {
+.space-right {
   margin-right: 1rem;
 }
 
-.cardCheckBox {
-  text-align: right;
+.delete-checkbox {
+  text-align: left;
   position: relative;
   top: -5px;
 }

@@ -35,7 +35,7 @@ class ProductItem extends React.Component<propsType> {
         return (
             <Card>
                 <Card.Body>
-                    <div className="cardCheckBox">
+                    <div className="delete-checkbox">
                         <input type="checkbox" name={product.sku ?? undefined} onClick={this.handleIsChecked} value={product.sku ?? ''}/>
                     </div>
                     
