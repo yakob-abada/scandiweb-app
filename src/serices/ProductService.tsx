@@ -5,7 +5,7 @@ import BadRequestError from "./BadRequestError";
 class ProductService {
     async save(product: ProductType): Promise<void> {
         try {
-            const result = await axios.post(`http://127.0.0.1:8000/product/saveApi`, {
+            await axios.post(`${process.env.REACT_APP_BASE_URL}/product/saveApi`, {
                 sku: product.sku,
                 name: product.name,
                 price: product.price,
@@ -24,7 +24,7 @@ class ProductService {
     }
 
     async getAll(): Promise<any[]> {
-        const result = await axios.get(`http://127.0.0.1:8000/product/all`);
+        const result = await axios.get(`${process.env.REACT_APP_BASE_URL}/product/all`);
 
         return result.data;
     }
@@ -32,7 +32,7 @@ class ProductService {
     async deleteBulk(ids: string[]): Promise<void> {
         for (const id of ids) {
             try {
-                await axios.delete(`http://127.0.0.1:8000/product/delete?sku=${id}`);
+                await axios.delete(`${process.env.REACT_APP_BASE_URL}/product/delete?sku=${id}`);
             } catch(e) {
                 console.log(e)
             }
