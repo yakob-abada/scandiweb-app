@@ -120,7 +120,7 @@ class ProductAdd extends React.Component<any, stateType> {
         
         const productService = new ProductService();
         try {
-            const result = await productService.save(product);
+            await productService.save(product);
         } catch (e) {
             if (e instanceof BadRequestError) {
                 this.setState({errorMessages: e.message.split(',')})
