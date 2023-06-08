@@ -27,9 +27,9 @@ class ProductList extends React.Component<{}, stateType> {
         this.setState({ items });
     }
 
-    async deleteProducts() {
+    deleteProducts() {
         const productService = new ProductService();
-        await productService.deleteBulk(this.state.deletedItems);
+        productService.deleteBulk(this.state.deletedItems);
 
         this.setState((state, props) => {
             let prevItems = state.items
