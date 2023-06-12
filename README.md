@@ -16,11 +16,12 @@ Installation
 
 Tests
 -----
-- Codeceptjs: `npm run codeceptjs`
-- jest: `npm run test`
+- Codeceptjs: `npm run codeceptjs`.
+- jest: `npm run test`.
 
 What to improve
 ---------------
 - Introduce structured logs for better debugging.
 - Use functional component instead of class components.
 - Increase jest code testing coverage.
+- Add linting.
