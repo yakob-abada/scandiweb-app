@@ -5,6 +5,7 @@ Introduction
 ------------
 - This application was on build based on React
 - It's frontend runs on top of [Scandiweb backend](https://github.com/yakob-abada/scandiweb).
+- Github pipeline for testsing and deploying to AWS S3.
 
 Installation
 ------------
@@ -16,3 +17,10 @@ Installation
 Tests
 -----
 - Codeceptjs: `npm run codeceptjs`
+- jest: `npm run test`
+
+What to improve
+---------------
+- Introduce structured logs for better debugging.
+- Use functional component instead of class components.
+- Increase jest code testing coverage.

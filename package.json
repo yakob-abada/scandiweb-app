@@ -57,5 +57,10 @@
         "codeceptjs": "^3.4.1",
         "playwright": "^1.35.0",
         "react-router-dom": "^6.11.2"
+    },
+    "jest": {
+        "moduleNameMapper": {
+          "axios": "axios/dist/node/axios.cjs"
+        }
     }
 }
