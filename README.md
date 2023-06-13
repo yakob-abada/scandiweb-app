@@ -3,7 +3,8 @@ Product App
 
 Introduction
 ------------
-- This application was on build based on React
+- This application was on build based on React.
+- SASS is also have been used
 - It's frontend runs on top of [Scandiweb backend](https://github.com/yakob-abada/scandiweb).
 - Github pipeline for testsing and deploying to AWS S3.
 
